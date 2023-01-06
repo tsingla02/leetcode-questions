@@ -14,6 +14,13 @@ public:
     
     bool ans(TreeNode* root)
     {
+        if(root->val == 1)
+        {
+            return true;
+        }
+        if(root->val == 0)
+            return false;
+        
         if(root->val == 2)
         {
             if(ans(root->left) || ans(root->right))
@@ -24,13 +31,8 @@ public:
             if(ans(root->left) && ans(root->right))
                 return true;
         }
-        if(root->val == 1)
-        {
-            return true;
-        }
-        if(root->val == 0)
-            return false;
         return false;
+        
     }
     bool evaluateTree(TreeNode* root) {
         return ans(root);
