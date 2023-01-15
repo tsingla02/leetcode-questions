@@ -18,10 +18,12 @@ public:
         }
         else if(guess(mid) == 1)
         {
+            mid = mid+1;
             return solution(mid, last);
         }
         else if(guess(mid) == -1)
         {
+            mid = mid -1;
             return solution(start, mid);
         }
         return 0;
