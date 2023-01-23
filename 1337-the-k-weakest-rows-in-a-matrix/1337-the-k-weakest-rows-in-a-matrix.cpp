@@ -3,25 +3,42 @@ class Solution
     public:
         vector<int> kWeakestRows(vector<vector < int>> &mat, int k)
         {
-            priority_queue<pair<int, int>, vector< pair<int, int>>, greater<pair<int, int>>> q;
+            priority_queue<pair<int, int>> q;
             for (int i = 0; i < mat.size(); i++)
             {
                 int count = 0;
-                while (mat[i][count] == 1 )
+                while (mat[i][count] == 1)
                 {
                     count++;
-                    if(count == mat[i].size())break;
+                    if (count == mat[i].size()) break;
                 }
-
-                q.push(make_pair(count, i));
+                if (q.size() <= k)
+                {
+                    q.push(make_pair(count, i));
+                }
+                else
+                {
+                    q.push(make_pair(count, i));
+                    q.pop();
+                }
             }
-            vector<int> ans;
-            while (!q.empty() && k != 0)
+            if (q.size() > k)
             {
-                pair<int, int> top = q.top();
-                ans.push_back(top.second);
+
                 q.pop();
-                k--;
+            }
+
+            vector<int> ans;
+            stack<int> ansl;
+            while (!q.empty())
+            {
+                ansl.push(q.top().second);
+                q.pop();
+            }
+            while (!ansl.empty())
+            {
+                ans.push_back(ansl.top());
+                ansl.pop();
             }
             return ans;
         }
