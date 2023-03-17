@@ -16,7 +16,7 @@ public:
         if(root == NULL)return 0;
         return root->val + sum(root->left) + sum(root->right);
     }
-    void frequency(TreeNode* root , map<int,int>& pq)
+    void frequency(TreeNode* root , unordered_map<int,int>& pq)
     {
         if(root == NULL)return;
         pq[sum(root)]++;
@@ -25,7 +25,7 @@ public:
 
     }
     vector<int> findFrequentTreeSum(TreeNode* root) {
-        map<int,int> pq;
+        unordered_map<int,int> pq;
         frequency(root, pq);
         vector<int> ans;
         int m = INT_MIN;
