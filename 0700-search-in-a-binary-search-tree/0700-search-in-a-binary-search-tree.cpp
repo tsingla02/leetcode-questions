@@ -11,34 +11,10 @@
  */
 class Solution {
 public:
+    
     TreeNode* searchBST(TreeNode* root, int val) {
-        if(root->val == val)
-        {
-            return root;
-        }
-        TreeNode* ans = NULL;
-        queue<TreeNode*> qu;
-        qu.push(root);
-        
-        while(!qu.empty())
-        {
-            TreeNode* node = qu.front();
-            qu.pop();
-            if(node->val == val)
-            {
-                ans = node;
-                break;
-            }
-            if(node->left != NULL)
-            {
-                qu.push(node->left);
-            }
-            if(node->right != NULL)
-            {
-                qu.push(node->right);
-            }
-            
-        }
-        return ans;
+        if(root == NULL)return NULL;
+        if(root->val == val)return root;
+        return (root->val > val) ?  searchBST(root->left, val) :  searchBST(root->right, val);
     }
 };
