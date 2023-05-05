@@ -5,39 +5,48 @@ using namespace std;
 // } Driver Code Ends
 class Solution
 {
-    private:
-    void dfs(int node, vector<int> & visited, vector<int> adj[] , stack<int> & st){
-        visited[node] = 1;
-        for(auto x : adj[node])
-        {
-            if(!visited[x])
-            {
-                dfs(x, visited, adj, st);
-            }
-        }
-        st.push(node);
-    }
 	public:
 	//Function to return list containing vertices in Topological order. 
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
-	    // code here
-	    vector<int> visited(V,0);
-	    vector<int> ans;
-	    stack<int> st;
-	    for (int i = 0 ; i< V ; i++)
+	    vector<int> indegree(V+1, 0);
+	    for(int i = 0 ; i < V ; i++)
 	    {
-	        if(!visited[i])
+	        for(auto x : adj[i])
 	        {
-	            dfs(i, visited, adj, st);
+	            indegree[x]++;
 	        }
 	    }
-	    while(!st.empty())
+	    
+	    queue<int> q;
+	    
+	    for(int i = 0 ; i < V ; i++)
 	    {
-	        ans.push_back(st.top());
-	        st.pop();
+	        if(indegree[i] == 0) q.push(i);
 	    }
+	    
+	    vector<int> ans;
+	   // int count = 0 ; 
+	    
+	    while(!q.empty())
+	    {
+	        int tp = q.front();
+	        ans.push_back(tp);
+	        q.pop();
+	        for(auto x : adj[tp])
+	        {
+	            indegree[x]--;
+	            if(indegree[x] == 0)
+	            {
+	                q.push(x);
+	            }
+	           // count++;
+	        }
+	    }
+	   // cout<<count<<endl;
 	    return ans;
+	   // vector<int> ans1;
+	   // return ans1;
 	}
 };
 
