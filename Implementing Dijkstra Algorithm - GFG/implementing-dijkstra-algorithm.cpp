@@ -32,7 +32,6 @@ class Solution
                     pq.push({dis , x[i][0]});
                 }
             }
-            if(pq.empty())break;
         }
         return dist;
     }
