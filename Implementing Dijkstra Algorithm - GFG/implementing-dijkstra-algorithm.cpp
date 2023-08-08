@@ -14,9 +14,7 @@ class Solution
         dist[S] = 0;
         priority_queue<pair<int,int> , vector<pair<int,int>>, greater<pair<int,int>>> pq;
         
-        vector<int> visited(V,0);
         pq.push({0,S});
-        visited[S] = 1;
         while(!pq.empty())
         {
             int d = pq.top().first;
@@ -30,10 +28,6 @@ class Solution
                 if(d + edjeweight < dist[edjenode]){
                     dist[edjenode] = d + edjeweight;
                     pq.push({dist[edjenode], edjenode});
-                }
-                if(!visited[edjenode]){
-                    visited[edjenode] = 1;
-                    pq.push({d + edjeweight, edjenode});
                 }
             }
         }
