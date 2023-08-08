@@ -10,29 +10,35 @@ class Solution
     //from the source vertex S.
     vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
-        // Code here
-        vector<int> dist(V, INT_MAX);
-        dist[S]=0;
-        priority_queue<pair<int,int> , vector<pair<int,int>> , greater<pair<int,int>>> pq;
+        vector<int> dist(V,1e9);
+        dist[S] = 0;
+        priority_queue<pair<int,int> , vector<pair<int,int>>, greater<pair<int,int>>> pq;
         
+        vector<int> visited(V,0);
         pq.push({0,S});
-        
+        visited[S] = 1;
         while(!pq.empty())
         {
+            int d = pq.top().first;
             int node = pq.top().second;
-            int temp = pq.top().first;
             pq.pop();
-            auto x = adj[node];
-            for(int i = 0 ; i< x.size() ;i++)
+            
+            for(auto x: adj[node])
             {
-                int dis = temp + x[i][1];
-                if(dis < dist[x[i][0]])
-                {            
-                    dist[x[i][0]] = dis;
-                    pq.push({dis , x[i][0]});
+                int edjeweight = x[1];
+                int edjenode = x[0];
+                if(d + edjeweight < dist[edjenode]){
+                    dist[edjenode] = d + edjeweight;
+                    pq.push({dist[edjenode], edjenode});
+                }
+                if(!visited[edjenode]){
+                    visited[edjenode] = 1;
+                    pq.push({d + edjeweight, edjenode});
                 }
             }
         }
+        
+        
         return dist;
     }
 };
